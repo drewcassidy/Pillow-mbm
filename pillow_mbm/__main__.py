@@ -3,6 +3,7 @@ import os
 import click
 from typing import List
 from PIL import Image
+import pillow_mbm
 
 
 def get_decoded_extensions(feature: str = 'open') -> List[str]:
@@ -66,6 +67,7 @@ def path_pairs(inputs, output, suffix, extension):
               type=click.Path(writable=True), default=None,
               help="Output file or directory. If outputting to a file, input filenames must be only a single item. By default, files are decoded in place.")
 @click.argument('filenames', nargs=-1, type=click.Path(exists=True, readable=True, dir_okay=False))
+@click.version_option(version=pillow_mbm.__version__)
 def decode(flip, remove, suffix, extension, output, filenames):
     """Decode Kerbal Space Program MBM files"""
 

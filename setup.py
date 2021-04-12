@@ -16,10 +16,9 @@ setup(
     long_description=readme,
     long_description_content_type='text/markdown',
     python_requires=">=3.7",
-    install_requires=['Pillow'],
-    extras_require={'CLI': ['click']},
+    install_requires=['Pillow', 'click'],
     entry_points={
-        'console_scripts': ['convert-mbm = pillow_mbm.__main__:decode [CLI]']
+        'console_scripts': ['convert-mbm = pillow_mbm.__main__:decode']
     },
     package_dir={'': '.'},
     packages=['pillow_mbm'],
