@@ -24,7 +24,7 @@ setup(
     package_dir={'': '.'},
     packages=['pillow_mbm'],
     classifiers=[
-        'Development Status :: 1 - Planning',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU Affero General Public License v3',
         'Operating System :: OS Independent',
