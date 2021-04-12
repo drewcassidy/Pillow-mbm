@@ -68,7 +68,7 @@ def path_pairs(inputs, output, suffix, extension):
               help="Output file or directory. If outputting to a file, input filenames must be only a single item. By default, files are decoded in place.")
 @click.argument('filenames', nargs=-1, type=click.Path(exists=True, readable=True, dir_okay=False))
 @click.version_option(version=pillow_mbm.__version__)
-def decode(flip, remove, suffix, extension, output, filenames):
+def convert_mbm(flip, remove, suffix, extension, output, filenames):
     """Decode Kerbal Space Program MBM files"""
 
     pairs = path_pairs(filenames, output, suffix, extension)
@@ -87,4 +87,4 @@ def decode(flip, remove, suffix, extension, output, filenames):
 
 
 if __name__ == '__main__':
-    decode()
+    convert_mbm()

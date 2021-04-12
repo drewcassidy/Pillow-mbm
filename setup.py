@@ -18,7 +18,7 @@ setup(
     python_requires=">=3.7",
     install_requires=['Pillow', 'click'],
     entry_points={
-        'console_scripts': ['convert-mbm = pillow_mbm.__main__:decode']
+        'console_scripts': ['convert-mbm = pillow_mbm.__main__:convert_mbm']
     },
     package_dir={'': '.'},
     packages=['pillow_mbm'],
