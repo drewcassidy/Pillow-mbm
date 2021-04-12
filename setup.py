@@ -1,32 +1,28 @@
+import os.path
 from setuptools import setup
 
+project_path = os.path.dirname(os.path.realpath(__file__))
 
-def version():
-    with open('pillow_mbm/version.py') as f:
-        exec(f.read())
-        return __version__
+with open(os.path.join(project_path, 'pillow_mbm', 'version.py')) as f:
+    exec(f.read())
 
-
-def readme():
-    with open('README.md') as f:
-        return f.read()
-
+with open(os.path.join(project_path, 'README.md')) as f:
+    readme = f.read()
 
 setup(
     name='pillow-mbm',
     description="A pillow plugin that adds support for KSP's MBM textures",
-    version=version(),
-    long_description=readme(),
+    version=__version__,
+    long_description=readme,
     long_description_content_type='text/markdown',
+    python_requires=">=3.7",
     install_requires=['Pillow'],
-    extras_require={
-        'cli': ['click']
+    extras_require={'CLI': ['click']},
+    entry_points={
+        'console_scripts': ['convert-mbm = pillow_mbm.__main__:decode [CLI]']
     },
     package_dir={'': '.'},
-    entry_points='''
-        [console_scripts]
-        convert-mbm=pillow_mbm.__main__:main [cli]
-    ''',
+    packages=['pillow_mbm'],
     classifiers=[
         'Development Status :: 1 - Planning',
         'Intended Audience :: Developers',
