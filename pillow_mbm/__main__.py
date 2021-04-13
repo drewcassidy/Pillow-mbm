@@ -66,14 +66,18 @@ def path_pairs(inputs, output, suffix, extension):
 @click.option('-o', '--output',
               type=click.Path(writable=True), default=None,
               help="Output file or directory. If outputting to a file, input filenames must be only a single item. By default, files are decoded in place.")
+@click.option('-v', '--verbose', is_flag=True, help="print more information")
 @click.argument('filenames', nargs=-1, type=click.Path(exists=True, readable=True, dir_okay=False))
 @click.version_option(version=pillow_mbm.__version__)
-def convert_mbm(flip, remove, suffix, extension, output, filenames):
+def convert_mbm(flip, remove, suffix, extension, output, verbose, filenames):
     """Decode Kerbal Space Program MBM files"""
 
     pairs = path_pairs(filenames, output, suffix, extension)
 
-    with click.progressbar(pairs, show_eta=False, show_pos=True, item_show_func=lambda x: str(x[0]) if x else '') as bar:
+    with click.progressbar(pairs, show_eta=False, show_pos=True, item_show_func=lambda x: f'{x[0]}->{x[1]}' if x else '') as bar:
+        if verbose:
+            bar.is_hidden = True
+
         for inpath, outpath in bar:
             image = Image.open(inpath)
 
@@ -84,6 +88,12 @@ def convert_mbm(flip, remove, suffix, extension, output, filenames):
 
             if remove:
                 os.remove(inpath)
+
+            if verbose:
+                print(f'Converting: {inpath} -> {outpath}')
+
+    if verbose:
+        print(f'Done: converted {len(pairs)} files')
 
 
 if __name__ == '__main__':

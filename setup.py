@@ -13,7 +13,6 @@ setup(
     name='pillow-mbm',
     description="A pillow plugin that adds support for KSP's MBM textures",
     version=__version__,
-    license='AGPL',
     url='https://github.com/drewcassidy/Pillow-mbm',
     author='Andrew Cassidy',
     long_description=readme,
