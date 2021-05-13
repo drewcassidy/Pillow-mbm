@@ -1,5 +1,3 @@
-from pillow_mbm.version import __version__
-
 import struct
 from PIL import Image, ImageFile
 

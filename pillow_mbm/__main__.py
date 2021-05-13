@@ -48,7 +48,8 @@ def path_pairs(inputs, output, suffix, extension):
                 raise click.BadOptionUsage('output', 'Output is a single file, but multiple input files were provided.')
             if outpath.suffix not in decoded_extensions:
                 raise click.BadOptionUsage('output',
-                                           f'File has incorrect extension for decoded file. Valid extensions are:\n{decoded_extensions}')
+                                           f'File has incorrect extension for decoded file. Valid extensions are:\n'
+                                           f'{decoded_extensions}')
 
             return [(inpath, outpath) for inpath in inpaths]
         else:
@@ -72,7 +73,7 @@ def path_pairs(inputs, output, suffix, extension):
                    "By default, files are decoded in place.")
 @click.option('-v', '--verbose', is_flag=True, help="print more information")
 @click.argument('filenames', nargs=-1, type=click.Path(exists=True, readable=True, dir_okay=False))
-@click.version_option(version=pillow_mbm.__version__)
+@click.version_option()
 def convert_mbm(flip, remove, suffix, extension, output, verbose, filenames):
     """Decode Kerbal Space Program MBM files"""
 
