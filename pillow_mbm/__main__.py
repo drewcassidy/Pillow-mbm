@@ -47,7 +47,8 @@ def path_pairs(inputs, output, suffix, extension):
             if len(inputs) > 1:
                 raise click.BadOptionUsage('output', 'Output is a single file, but multiple input files were provided.')
             if outpath.suffix not in decoded_extensions:
-                raise click.BadOptionUsage('output', f'File has incorrect extension for decoded file. Valid extensions are:\n{decoded_extensions}')
+                raise click.BadOptionUsage('output',
+                                           f'File has incorrect extension for decoded file. Valid extensions are:\n{decoded_extensions}')
 
             return [(inpath, outpath) for inpath in inpaths]
         else:
@@ -56,16 +57,19 @@ def path_pairs(inputs, output, suffix, extension):
 
 
 @click.command()
-@click.option('-f/-F', '--flip/--no-flip', default=True, show_default=False, help="Vertically flip image after converting.")
-@click.option('-r', '--remove', is_flag=True, help="Remove input images after converting.")
-@click.option('-s', '--suffix', type=str, default='', help="Suffix to append to output file(s). Ignored if output is a single file.")
-@click.option('-x', '--extension',
+@click.option('-f/-F', '--flip/--no-flip', default=False, help="Vertically flip image after converting.")
+@click.option('-r/-k', '--remove/--keep', default=False, help="Remove input images after converting.")
+@click.option('-s', '--suffix', type=str, default='',
+              help="Suffix to append to output file(s). Ignored if output is a single file.")
+@click.option('-x', '--extension', metavar='EXT',
               callback=validate_decoded_extension,
               type=str, default='.png', show_default=True,
-              help="Extension to use for output. Ignored if output is a single file. Output filetype is deduced from this")
+              help="Extension to use for output. "
+                   "Ignored if output is a single file. Output filetype is deduced from this")
 @click.option('-o', '--output',
               type=click.Path(writable=True), default=None,
-              help="Output file or directory. If outputting to a file, input filenames must be only a single item. By default, files are decoded in place.")
+              help="Output file or directory. If outputting to a file, input filenames must be only a single item. "
+                   "By default, files are decoded in place.")
 @click.option('-v', '--verbose', is_flag=True, help="print more information")
 @click.argument('filenames', nargs=-1, type=click.Path(exists=True, readable=True, dir_okay=False))
 @click.version_option(version=pillow_mbm.__version__)
@@ -74,7 +78,8 @@ def convert_mbm(flip, remove, suffix, extension, output, verbose, filenames):
 
     pairs = path_pairs(filenames, output, suffix, extension)
 
-    with click.progressbar(pairs, show_eta=False, show_pos=True, item_show_func=lambda x: f'{x[0]}->{x[1]}' if x else '') as bar:
+    with click.progressbar(pairs, show_eta=False, show_pos=True,
+                           item_show_func=lambda x: f'{x[0]}->{x[1]}' if x else '') as bar:
         if verbose:
             bar.is_hidden = True
 
