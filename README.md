@@ -1,3 +1,6 @@
+> [!IMPORTANT] 
+> Migrated to https://git.offworldcolonies.nexus/drewcassidy/pillow-mbm
+
 # Pillow-mbm
 Pillow-mbm is a plugin for [pillow](https://pillow.readthedocs.io/en/stable/) 
 that adds support for KSP's proprietary MBM texture format.
